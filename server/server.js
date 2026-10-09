@@ -93,6 +93,7 @@ function gauss() {   // Box-Muller
 function applyConstructionEffects() {
   const fx = C.priceEffects || {};
   const now = {};
+  const removed = new Set();  // Track removed buildings
   Object.keys(bMap).forEach(id => { now[id] = bMap[id].type; });
   cells.filter(c => now[c.id] && R.seen[c.id] !== now[c.id]).forEach(c => {
     const e = fx[now[c.id]];
@@ -107,6 +108,26 @@ function applyConstructionEffects() {
       if (h.length > 60) h.shift();
     }));
   });
+
+  // Check for removed buildings
+  Object.keys(R.seen).forEach(id => {
+    if (!now[id]) {
+      removed.add(id);
+      const e = fx[R.seen[id]];  // Get effects from previously existing building
+      if (!e) return;
+      const targets = (e.target === "own" ? [buildingById[R.seen[id]].produces] : e.target).filter(Boolean);
+      const villages = e.scope === "all" ? vCodes : [byId[id].village];
+      villages.forEach(v => targets.forEach(name => {
+        const i = assetIdx[name];
+        if (i === undefined) return;
+        const h = R.history[v][i], cur = h[h.length - 1];
+        // Apply inverse effect with 80% amplitude
+        h.push(Math.max(1, +(cur * (1 - e.change * 0.8 + gauss() * (e.sd || 0) * 0.8)).toFixed(2)));
+        if (h.length > 60) h.shift();
+      }));
+    }
+  });
+
   R.seen = now;
 }
 
