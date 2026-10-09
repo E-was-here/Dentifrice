@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin – Buildings</title>
+<style>
+  body { background:#0f1720; color:#e8eef4; font-family:system-ui,sans-serif; margin:0; padding:16px; }
+  h1 { font-size:1.3rem; margin-bottom:4px; }
+  a { color:#8ab4f8; }
+  #msg { min-height:1.4em; margin:8px 0 14px; font-size:.95rem; }
+  #msg.ok { color:#2ecc71; } #msg.bad { color:#f39c12; }
+  #grid { display:flex; flex-wrap:wrap; gap:14px; }
+  .village { background:#182430; border-radius:10px; border-top:6px solid #888; padding:10px 12px; min-width:330px; }
+  .village h2 { font-size:1rem; margin:0 0 8px; }
+  .row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .cell { width:34px; font-weight:700; color:#8aa0b3; }
+  select { background:#243545; color:#e8eef4; border:0; border-radius:6px; padding:6px; font-size:.9rem; }
+  select:disabled { opacity:.5; }
+  button { background:#7a2b2b; color:#fff; border:0; border-radius:6px; padding:8px 14px; cursor:pointer; margin-top:16px; }
+</style>
+</head>
+<body>
+  <h1>⚙️ Buildings admin</h1>
+  <a href="../">← Back to the display</a>
+  <div id="state" style="margin:12px 0 4px;font-size:1.05rem;"></div>
+  <button id="start" style="background:#1f7a46;margin-top:4px;">▶ Lancer la partie</button>
+  <button id="pause" style="background:#8a5a1a;margin-top:4px;">⏸ Mettre en pause</button>
+  <div id="msg"></div>
+  <div id="grid"></div>
+  <button id="clear">Remettre à zéro (bâtiments + prix, retour en attente)</button>
+
+  <script src="../config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
