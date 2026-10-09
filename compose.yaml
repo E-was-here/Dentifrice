@@ -1,6 +1,6 @@
 services:
   scouts-dentifrice:
-    image: docker.io/library/node:22-alpine
+    image: ghcr.io/e-was-here/dentifrice:1.0.0
     container_name: scouts-dentifrice
     working_dir: /app
     command: node server/server.js
